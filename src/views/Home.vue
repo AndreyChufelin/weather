@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import WeatherDay from "../components/WeatherDay.vue";
 import WeatherList from "../components/WeatherList.vue";
 import WeaherNextDay from "../components/WeaherNextDay.vue";
@@ -158,6 +158,14 @@ export default {
     const currentDay = ref(weather.value.daily[0]);
     const hours = ref(weather.value.hourly);
     const nextDays = ref(weather.value.daily.slice(1));
+
+    onMounted(() => {
+      const favicon = document.getElementById("favicon");
+      favicon.href = require(`../assets/images/${currentDay.value.weather[0].icon.slice(
+        0,
+        -1
+      )}.png`);
+    });
 
     return { weather, currentDay, hours, nextDays };
   },
