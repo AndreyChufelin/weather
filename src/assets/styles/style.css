@@ -103,6 +103,10 @@ li {
   align-items: center;
 }
 
+.header__title {
+  max-width: 400px;
+}
+
 .header__subtitle {
   font-size: 24px;
 }
