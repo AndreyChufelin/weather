@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <div class="header__container container">
-      <h2 class="header__title title">City, Country</h2>
+      <h2 class="header__title title">{{ city.name }}, {{ city.country }}</h2>
       <header-search />
       <header-language />
     </div>
@@ -11,8 +11,16 @@
 <script>
 import HeaderLanguage from "./HeaderLanguage.vue";
 import HeaderSearch from "./HeaderSearch.vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+
 export default {
   components: { HeaderLanguage, HeaderSearch },
-  setup() {},
+  setup() {
+    const store = useStore();
+    const city = computed(() => store.state.location.city);
+
+    return { city };
+  },
 };
 </script>

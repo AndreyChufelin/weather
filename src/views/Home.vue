@@ -1,20 +1,26 @@
 <template>
-  <div class="home">
+  <div class="home" v-if="city">
     <weather-day class="today" :weather="currentDay" />
     <weather-list :hours="hours" />
     <weaher-next-day v-for="day in nextDays" :key="day.dt" :weather="day" />
   </div>
+  <p v-else>Please select a city</p>
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
+import { useStore } from "vuex";
 import WeatherDay from "../components/WeatherDay.vue";
 import WeatherList from "../components/WeatherList.vue";
 import WeaherNextDay from "../components/WeaherNextDay.vue";
+
 export default {
   components: { WeatherDay, WeatherList, WeaherNextDay },
   name: "Home",
   setup() {
+    const store = useStore();
+    const city = computed(() => store.state.location.city);
+
     const weather = ref({
       lat: 33.44,
       lon: -94.04,
@@ -167,7 +173,7 @@ export default {
       )}.png`);
     });
 
-    return { weather, currentDay, hours, nextDays };
+    return { weather, currentDay, hours, nextDays, city };
   },
 };
 </script>
