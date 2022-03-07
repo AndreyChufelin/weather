@@ -1,5 +1,6 @@
 <template>
   <the-header />
+  <the-errors />
   <main class="container">
     <router-view />
   </main>
@@ -10,9 +11,10 @@ import TheFooter from "./components/TheFooter.vue";
 import TheHeader from "./components/TheHeader.vue";
 import { useStore } from "vuex";
 import { computed, watch } from "vue";
+import TheErrors from "./components/TheErrors.vue";
 
 export default {
-  components: { TheHeader, TheFooter },
+  components: { TheHeader, TheFooter, TheErrors },
   setup() {
     const store = useStore();
     const city = computed(() => store.state.location.city);

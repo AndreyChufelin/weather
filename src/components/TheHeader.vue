@@ -1,7 +1,10 @@
 <template>
   <header class="header">
     <div class="header__container container">
-      <h2 class="header__title title">{{ city.name }}, {{ city.country }}</h2>
+      <h2 class="header__title title">
+        <template v-if="city">{{ city.name }}, {{ city.country }}</template>
+        <template v-else>DoggoWeather</template>
+      </h2>
       <header-search />
       <header-language />
     </div>
