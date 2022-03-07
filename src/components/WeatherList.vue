@@ -5,7 +5,11 @@
     :space-between="11"
     :observer="true"
   >
-    <swiper-slide style="width: 200px" v-for="hour in hours" :key="hour.dt">
+    <swiper-slide
+      style="width: 200px; height: auto !important"
+      v-for="hour in hours"
+      :key="hour.dt"
+    >
       <weather-card :weather="hour" />
     </swiper-slide>
   </swiper>

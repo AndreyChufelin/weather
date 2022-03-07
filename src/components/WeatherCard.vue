@@ -1,5 +1,5 @@
 <template>
-  <div class="hours__card card swiper-slide">
+  <div class="card swiper-slide">
     <div class="card__title">{{ time }}</div>
     <weather-icon
       class="card__icon"
