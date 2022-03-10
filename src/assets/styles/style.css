@@ -19,6 +19,23 @@
     url("../fonts/montserrat-v23-latin_cyrillic-700.ttf") format("truetype");
 }
 
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 2s ease;
+}
+.fade-leave-active {
+  position: absolute;
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
 * {
   font-weight: 400;
   margin: 0;
@@ -80,6 +97,7 @@ li {
 
 .container {
   max-width: 1053px;
+  width: 100%;
   margin: 0 auto;
   padding: 0px 1.5%;
 }
@@ -131,6 +149,7 @@ li {
 }
 
 .search-list {
+  z-index: 100;
   width: 100%;
   transform: translate(-50%);
   position: absolute;
@@ -225,6 +244,22 @@ li {
 
 .hours__list {
   padding: 10px 5px !important;
+}
+.spinner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.spinner__image {
+  animation: spin 3s infinite;
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .card {
   display: flex;

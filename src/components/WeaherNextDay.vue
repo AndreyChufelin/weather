@@ -15,7 +15,7 @@ export default {
     weather: Object,
   },
   setup(props) {
-    const date = computed(() => getDate(props.weather.dt2));
+    const date = computed(() => getDate(props.weather.dt));
     return { date };
   },
 };

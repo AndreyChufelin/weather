@@ -10,7 +10,7 @@
           />
         </div>
         <div class="day__weather">
-          {{ weather.temp.day }}°
+          {{ Math.floor(weather.temp.day) }}°
           <div class="day__weather-description">
             {{ weather.weather[0].description }}
           </div>
@@ -19,7 +19,7 @@
       <div class="separator"></div>
       <div class="day__info">
         <div class="day__info-item">
-          {{ weather.temp.max }}°
+          {{ Math.floor(weather.temp.max) }}°
           <div>High</div>
         </div>
         <div class="day__info-item">
@@ -31,7 +31,7 @@
           <div>Sunrise</div>
         </div>
         <div class="day__info-item">
-          {{ weather.temp.min }}°
+          {{ Math.floor(weather.temp.min) }}°
           <div>Low</div>
         </div>
         <div class="day__info-item">

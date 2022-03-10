@@ -7,7 +7,7 @@
       :weather="weather.weather[0].description"
     />
     <div class="card__info">
-      {{ weather.temp }}°, {{ weather.weather[0].description }}
+      {{ Math.floor(weather.temp) }}°, {{ weather.weather[0].description }}
     </div>
   </div>
 </template>
