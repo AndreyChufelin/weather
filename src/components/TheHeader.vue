@@ -8,7 +8,7 @@
       <header-search />
       <header-language />
     </div>
-    <div class="header__subtitle container">monday 29 may</div>
+    <div class="header__subtitle container">{{ date }}</div>
   </header>
 </template>
 <script>
@@ -16,14 +16,17 @@ import HeaderLanguage from "./HeaderLanguage.vue";
 import HeaderSearch from "./HeaderSearch.vue";
 import { useStore } from "vuex";
 import { computed } from "vue";
+import { getDate } from "../common/date";
 
 export default {
   components: { HeaderLanguage, HeaderSearch },
   setup() {
     const store = useStore();
     const city = computed(() => store.state.location.city);
+    const currentWeather = computed(() => store.state.weather.currentWeather);
+    const date = computed(() => getDate(currentWeather.value?.dt));
 
-    return { city };
+    return { city, date };
   },
 };
 </script>

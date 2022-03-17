@@ -2,8 +2,8 @@
   <div class="home" style="position: relative">
     <transition-group name="fade">
       <div v-if="status === statuses.ready" key="weather">
-        <weather-day v-if="currentDay" class="today" :weather="currentDay" />
-        <weather-list v-if="hours" :hours="hours" />
+        <weather-day class="today" :weather="currentWeather" />
+        <weather-list :hours="hours" />
         <weaher-next-day v-for="day in nextDays" :key="day.dt" :weather="day" />
       </div>
       <app-spinner v-else-if="status === statuses.loading" key="loading" />
@@ -35,7 +35,7 @@ export default {
 
     const weather = ref(null);
 
-    const currentDay = computed(() => weather.value?.daily[0]);
+    const currentWeather = computed(() => store.state.weather.currentWeather);
     const hours = computed(() => weather.value?.hourly);
     const nextDays = computed(() => weather.value?.daily.slice(1));
 
@@ -51,9 +51,8 @@ export default {
         )
           .then((res) => {
             weather.value = res;
-            setTimeout(() => {
-              status.value = statuses.ready;
-            }, 3000);
+            store.commit("setCurrentWeather", res.daily[0]);
+            status.value = statuses.ready;
           })
           .catch((error) => {
             store.commit("addError", error);
@@ -65,9 +64,9 @@ export default {
 
     onMounted(() => {
       getWeather().then(() => {
-        if (currentDay.value) {
+        if (currentWeather.value) {
           const favicon = document.getElementById("favicon");
-          favicon.href = require(`../assets/images/${currentDay.value.weather[0].icon.slice(
+          favicon.href = require(`../assets/images/${currentWeather.value.weather[0].icon.slice(
             0,
             -1
           )}.png`);
@@ -82,7 +81,7 @@ export default {
       getWeather();
     });
 
-    return { weather, currentDay, hours, nextDays, city, status, statuses };
+    return { weather, currentWeather, hours, nextDays, city, status, statuses };
   },
 };
 </script>

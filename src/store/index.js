@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import settings from "./modules/settings";
 import location from "./modules/location";
+import weather from "./modules/weather";
 
 let errorId = 1;
 
@@ -22,5 +23,5 @@ export default createStore({
     },
   },
   actions: {},
-  modules: { settings, location },
+  modules: { settings, location, weather },
 });
