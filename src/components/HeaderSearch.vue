@@ -4,7 +4,7 @@
       :value="searchData"
       type="text"
       class="search__input"
-      placeholder="Select city..."
+      :placeholder="t('search')"
       @input="updateSearch"
       @focus="showList = true"
     />
@@ -23,6 +23,7 @@ import { ref, watch, onMounted } from "vue";
 import { useStore } from "vuex";
 import { searchCitiesApi } from "../api/location";
 import HeaderSearchList from "./HeaderSearchList.vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: { HeaderSearchList },
@@ -31,6 +32,7 @@ export default {
     const searchData = ref("");
     const cities = ref([]);
     const showList = ref(false);
+    const { t } = useI18n();
 
     const searchInputDelay = 1000;
     let timer;
@@ -44,7 +46,7 @@ export default {
 
     watch(searchData, () => {
       if (searchData.value.length >= 3) {
-        searchCitiesApi(searchData.value, store.state.settings.language)
+        searchCitiesApi(searchData.value)
           .then((res) => {
             cities.value = res;
           })
@@ -60,7 +62,7 @@ export default {
       });
     });
 
-    return { searchData, cities, showList, updateSearch };
+    return { searchData, cities, showList, updateSearch, t };
   },
 };
 </script>

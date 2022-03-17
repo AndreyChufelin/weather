@@ -1,25 +1,27 @@
+import { useI18n } from "vue-i18n";
+
 const monthes = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
 ];
 const days = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+  "sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
 ];
 
 export const parseDate = (date) => new Date(date * 1000);
@@ -32,11 +34,11 @@ export const getTime = (date) => {
   return formattedTime;
 };
 export const getDate = (date) => {
+  const { t } = useI18n({ useScope: "global" });
   const parsedDate = parseDate(date);
-
-  const month = monthes[parsedDate.getMonth()];
+  const month = t(monthes[parsedDate.getMonth()]);
   const dateDay = parsedDate.getDate();
-  const day = days[parsedDate.getDay()];
+  const day = t(days[parsedDate.getDay()]);
 
   const formattedTime = `${month} ${dateDay} ${day}`;
   return formattedTime;

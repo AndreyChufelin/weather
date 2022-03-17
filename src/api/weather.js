@@ -1,8 +1,10 @@
 import { parseDate } from "../common/date";
+import { i18n } from "../common/localization";
 
-export const getWeatherApi = (coords, lang) => {
+export const getWeatherApi = (coords) => {
+  const { locale } = i18n.global;
   return fetch(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.latitude}&lon=${coords.longitude}&units=metric&lang=${lang}&appid=79403415551793e325fcc351666475e5`
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.latitude}&lon=${coords.longitude}&units=metric&lang=${locale.value}&appid=79403415551793e325fcc351666475e5`
   )
     .then((res) => {
       if (res.status >= 400 && res.status < 600) {

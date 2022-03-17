@@ -24,7 +24,9 @@ export default {
     const store = useStore();
     const city = computed(() => store.state.location.city);
     const currentWeather = computed(() => store.state.weather.currentWeather);
-    const date = computed(() => getDate(currentWeather.value?.dt));
+    const date = computed(() =>
+      currentWeather.value.dt ? getDate(currentWeather.value.dt) : ""
+    );
 
     return { city, date };
   },

@@ -42,13 +42,10 @@ export default {
     function getWeather() {
       status.value = statuses.loading;
       if (city.value) {
-        return getWeatherApi(
-          {
-            latitude: city.value.latitude,
-            longitude: city.value.longitude,
-          },
-          language.value
-        )
+        return getWeatherApi({
+          latitude: city.value.latitude,
+          longitude: city.value.longitude,
+        })
           .then((res) => {
             weather.value = res;
             store.commit("setCurrentWeather", res.daily[0]);
