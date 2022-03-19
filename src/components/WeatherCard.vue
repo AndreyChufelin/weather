@@ -1,26 +1,45 @@
 <template>
-  <div
-    class="card swiper-slide"
-    :class="time === currentTime ? 'card_selected' : ''"
-    @click="setCurrentWeather"
-  >
-    <div class="card__title">{{ time }}</div>
-    <weather-icon
-      class="card__icon"
-      :id="weather.weather[0].icon"
-      :weather="weather.weather[0].description"
-    />
-    <div class="card__info">
-      {{ Math.floor(weather.temp) }}°, {{ weather.weather[0].description }}
+  <div ref="card" class="card" @click="showMore">
+    <div class="card__main">
+      <div class="card__title">{{ time }}</div>
+      <weather-icon
+        class="card__icon"
+        :id="weather.weather[0].icon"
+        :weather="weather.weather[0].description"
+      />
+      <div class="card__info">
+        {{ Math.floor(weather.temp) }}°, {{ weather.weather[0].description }}
+      </div>
     </div>
+    <transition name="fade-card">
+      <div v-if="isShowingMore" class="card__body">
+        <div class="card__addition-info">
+          <div class="card__addition-info-item">
+            {{ Math.floor(weather.feels_like) }}°
+            <div>Feels Like</div>
+          </div>
+          <div class="card__addition-info-item">
+            {{ weather.humidity }}%
+            <div>Humidity</div>
+          </div>
+          <div class="card__addition-info-item">
+            {{ weather.pressure }}
+            <div>Pressure, mm Hg</div>
+          </div>
+          <div class="card__addition-info-item">
+            {{ weather.wind_speed }}<span style="font-size: 0.5em">m/s</span>
+            <div>Wind</div>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 import WeatherIcon from "./WeatherIcon.vue";
 import { getTime } from "../common/date.js";
-import { computed } from "vue";
-import { useStore } from "vuex";
+import { computed, ref, toRefs, watch } from "vue";
 
 export default {
   components: { WeatherIcon },
@@ -29,32 +48,29 @@ export default {
       type: Object,
       required: true,
     },
+    show: Boolean,
   },
-  setup(props) {
-    const store = useStore();
+  emits: ["showMore"],
+  setup(props, { emit }) {
+    const show = toRefs(props).show;
+    const card = ref(null);
     const time = computed(() => getTime(props.weather.dt));
-    const currentTime = computed(() =>
-      getTime(store.state.weather.currentWeather.dt)
-    );
+    const isShowingMore = ref(false);
 
-    function setCurrentWeather() {
-      const weatherData = {
-        ...props.weather,
-        temp: {
-          min: props.weather.temp,
-          max: props.weather.temp,
-          day: props.weather.temp,
-        },
-        sunset: store.state.weather.currentWeather.sunset,
-        sunrise: store.state.weather.currentWeather.sunrise,
-      };
-      store.commit("setCurrentWeather", weatherData);
+    function showMore() {
+      isShowingMore.value = !isShowingMore.value;
+      emit("showMore", isShowingMore.value);
     }
+
+    watch(show, (value) => {
+      isShowingMore.value = value;
+    });
 
     return {
       time,
-      setCurrentWeather,
-      currentTime,
+      card,
+      isShowingMore,
+      showMore,
     };
   },
 };
