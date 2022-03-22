@@ -16,19 +16,20 @@
         <div class="card__addition-info">
           <div class="card__addition-info-item">
             {{ Math.floor(weather.feels_like) }}°
-            <div>Feels Like</div>
+            <div>{{ t("feels_like") }}</div>
           </div>
           <div class="card__addition-info-item">
             {{ weather.humidity }}%
-            <div>Humidity</div>
+            <div>{{ t("humidity") }}</div>
           </div>
           <div class="card__addition-info-item">
             {{ weather.pressure }}
-            <div>Pressure, mm Hg</div>
+            <div>{{ t("pressure") }}, {{ t("mmHg") }}</div>
           </div>
           <div class="card__addition-info-item">
-            {{ weather.wind_speed }}<span style="font-size: 0.5em">m/s</span>
-            <div>Wind</div>
+            {{ weather.wind_speed
+            }}<span style="font-size: 0.5em">{{ t("ms") }}</span>
+            <div>{{ t("wind") }}</div>
           </div>
         </div>
       </div>
@@ -40,6 +41,7 @@
 import WeatherIcon from "./WeatherIcon.vue";
 import { getTime } from "../common/date.js";
 import { computed, ref, toRefs, watch } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: { WeatherIcon },
@@ -52,6 +54,7 @@ export default {
   },
   emits: ["showMore"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const show = toRefs(props).show;
     const card = ref(null);
     const time = computed(() => getTime(props.weather.dt));
@@ -71,6 +74,7 @@ export default {
       card,
       isShowingMore,
       showMore,
+      t,
     };
   },
 };

@@ -1,4 +1,8 @@
 import { i18n } from "../common/localization";
+// import { useI18n } from "vue-i18n";
+
+// const { t } = useI18n({});
+const { t, locale } = i18n.global;
 
 const domain = "https://wft-geo-db.p.rapidapi.com";
 const headers = {
@@ -11,9 +15,9 @@ function toCoords(x) {
   }
   return String(parsed);
 }
+
 function call(path, params = {}) {
   let url = new URL(`${domain}/${path}`);
-  const { locale } = i18n.global;
   url.searchParams.append("languageCode", locale.value);
 
   Object.keys(params).forEach((key) =>
@@ -25,9 +29,9 @@ function call(path, params = {}) {
   })
     .then((res) => {
       if (res.status === 429) {
-        throw { message: "Too many requests. Try again later" };
+        throw { message: t("too_many") };
       } else if (res.status >= 400 && res.status < 600) {
-        throw { message: "Unknown error. Try again." };
+        throw { message: t("unknown_error") };
       }
 
       return res.json();

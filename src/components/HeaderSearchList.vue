@@ -10,12 +10,13 @@
       {{ city.name }}, {{ city.country }}
     </li>
   </ul>
-  <p class="search-list" style="padding: 15px" v-else>No results</p>
+  <p class="search-list" style="padding: 15px" v-else>{{ t("no_results") }}</p>
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   props: {
@@ -23,6 +24,7 @@ export default {
   },
   emits: ["selected"],
   setup(props, { emit }) {
+    const { t } = useI18n();
     const store = useStore();
     const selectedCity = ref(0);
 
@@ -52,7 +54,7 @@ export default {
       };
     });
 
-    return { selectedCity, selectCity };
+    return { selectedCity, selectCity, t };
   },
 };
 </script>

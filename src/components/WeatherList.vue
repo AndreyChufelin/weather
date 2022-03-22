@@ -51,7 +51,6 @@ export default {
     function showMore(event, index) {
       if (avtiveSlideKey.value) {
         slides.value[avtiveSlideKey.value].$el.style.width = "200px";
-        // avtiveSlide.value.style.width = "200px";
       }
       if (event) {
         setTimeout(() => {
@@ -61,7 +60,6 @@ export default {
         slides.value[index].$el.style.width = "200px";
       }
       avtiveSlideKey.value = index;
-      // avtiveSlide.value = slides.value[index].$el;
     }
 
     return { slides, avtiveSlideKey, showMore };

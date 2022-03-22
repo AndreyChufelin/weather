@@ -20,27 +20,27 @@
       <div class="day__info">
         <div class="day__info-item">
           {{ Math.floor(weather.temp.max) }}°
-          <div>High</div>
+          <div>{{ t("high") }}</div>
         </div>
         <div class="day__info-item">
-          {{ weather.wind_speed }}mph
-          <div>Wind</div>
+          {{ weather.wind_speed }}{{ t("ms") }}
+          <div>{{ t("wind") }}</div>
         </div>
         <div class="day__info-item">
           {{ sunrise }}
-          <div>Sunrise</div>
+          <div>{{ t("sunrise") }}</div>
         </div>
         <div class="day__info-item">
           {{ Math.floor(weather.temp.min) }}°
-          <div>Low</div>
+          <div>{{ t("low") }}</div>
         </div>
         <div class="day__info-item">
           {{ weather.humidity }}%
-          <div>Humidity</div>
+          <div>{{ t("humidity") }}</div>
         </div>
         <div class="day__info-item">
           {{ sunset }}
-          <div>Sunset</div>
+          <div>{{ t("sunset") }}</div>
         </div>
       </div>
     </div>
@@ -50,6 +50,7 @@
 import WeatherIcon from "./WeatherIcon.vue";
 import { getTime } from "../common/date.js";
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   components: { WeatherIcon },
@@ -60,12 +61,14 @@ export default {
     },
   },
   setup(props) {
+    const { t } = useI18n();
     const sunset = computed(() => getTime(props.weather.sunset));
     const sunrise = computed(() => getTime(props.weather.sunrise));
 
     return {
       sunset,
       sunrise,
+      t,
     };
   },
 };
