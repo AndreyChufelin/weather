@@ -2,7 +2,9 @@ import { getCityByCoordsApi, getCityByIdApi } from "../../api/location";
 
 export default {
   state: {
-    city: JSON.parse(localStorage.getItem("city")) || null,
+    city: localStorage.getItem("city")
+      ? JSON.parse(localStorage.getItem("city"))
+      : null,
   },
   mutations: {
     setCity(state, payload) {
