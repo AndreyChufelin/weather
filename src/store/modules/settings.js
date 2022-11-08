@@ -2,9 +2,7 @@ import { languages } from "../../common/types";
 
 export default {
   state: {
-    language: localStorage.getItem("language")
-      ? JSON.parse(localStorage.getItem("language"))
-      : languages.eng,
+    language: localStorage.getItem("language") || languages.eng,
   },
   mutations: {
     setLanguage(state, payload) {
