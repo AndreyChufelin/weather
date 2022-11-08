@@ -3,7 +3,7 @@
 
 Displays weather data
 
-![alt text](https://github.com/AndreyChufelin/weather/raw/master/screenshots/main.png?raw=true)
+![alt text](https://github.com/AndreyChufelin/weather/raw/master/screenshots/s1.png?raw=true)
 
 ## Project setup
 ```
