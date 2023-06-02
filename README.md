@@ -1,4 +1,8 @@
 # doggoweather
+![JavaScript](https://img.shields.io/badge/-JavaScript-0d1117?style=flat-square&logo=javascript)
+![Vue](https://img.shields.io/badge/-Vue-0d1117?style=flat-square&logo=vue.js)
+![Vuex](https://img.shields.io/badge/-Vuex-0d1117?style=flat-square&logo=vue.js)
+
 [demo](https://andreychufelin.github.io/weather/)
 
 Displays weather data
